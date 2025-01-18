@@ -8,7 +8,7 @@ sudo apt remove --purge llvm clang -y
 sudo apt autoremove
 wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
-sudo ./llvm.sh 18
+sudo ./llvm.sh 17
 export AR=/usr/bin/ar
 git submodule sync
 git clone https://github.com/xenia-project/xenia.git

@@ -26,7 +26,7 @@ jobs:
 
       - name: Make AppImage
         run: |
-          chmod +x ./xenia_build.sh.sh
+          chmod +x ./xenia_build.sh
           ./xenia_build.sh
           mkdir dist
           echo "$PWD"

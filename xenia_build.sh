@@ -7,7 +7,5 @@ git submodule sync
 git clone https://github.com/xenia-project/xenia.git
 cd ./xenia/
 git submodule update --init --recursive --progress
-mkdir build/
-cd ./build/
-python3 ../xb premake --cc clang
+python3 xb premake --cc clang
 ninja

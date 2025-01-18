@@ -7,3 +7,4 @@ git submodule sync
 git clone https://github.com/xenia-project/xenia.git
 cd ./xenia/
 git submodule update --init --recursive --progress
+python3 xb build

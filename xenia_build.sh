@@ -8,11 +8,13 @@ sudo apt remove --purge llvm clang -y
 sudo apt autoremove
 wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
-sudo ./llvm.sh 17
+sudo ./llvm.sh 18
+sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
+sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
 export AR=/usr/bin/ar
 export CXXFLAGS="$CXXFLAGS -Wno-integer-overflow"
 git submodule sync
 git clone https://github.com/xenia-project/xenia.git
 cd ./xenia/
 git submodule update --init --recursive --progress
-python3 xb premake --cc clang && python3 xb build --config release && make CXX=clang++ && make install --prefix=${GITHUB_WORKSPACE}/lucas/
+python3 xb premake --cc clang && python3 xb build --config release && make CXX=clang++ CXXFLAGS="-fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/

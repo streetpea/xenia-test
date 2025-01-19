@@ -33,5 +33,5 @@ git submodule update --init --recursive --progress
 python3 xb premake --cc clang --devenv=cmake
 #mkdir build2/
 #cd ./build2/
-cmake .. -GNinja
+cmake -GNinja
 #make -v CXX=clang++-18 CC=clang-18 CXXFLAGS="-Wno-integer-overflow -fvar-tracking-assignments -fno-lto" LDFLAGS="-fvar-tracking-assignments -fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/

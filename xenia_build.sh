@@ -13,9 +13,12 @@ sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools
 sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
 sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
 export AR=/usr/bin/ar
-export CXXFLAGS="$CXXFLAGS -Wno-integer-overflow"
+export CXXFLAGS="$CXXFLAGS -Wno-integer-overflow -flto"
+export CXX=clang++-18
+export CC=clang-18
+export LDFLAGS="-flto"
 git submodule sync
 git clone https://github.com/xenia-project/xenia.git
 cd ./xenia/
 git submodule update --init --recursive --progress
-python3 xb premake --cc clang && python3 xb build --config release && make CXX=clang++-18 CC=clang-18 -fno-lto && make install --prefix=${GITHUB_WORKSPACE}/lucas/
+python3 xb premake --cc clang && python3 xb build --config release && make CXX=clang++-18 CC=clang-18 && make install --prefix=${GITHUB_WORKSPACE}/lucas/

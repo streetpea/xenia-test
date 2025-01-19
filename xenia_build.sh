@@ -19,9 +19,9 @@ export CXX=clang++-18
 export CC=clang-18
 #export LDFLAGS="-fno-lto"
 #git submodule sync
-git clone https://github.com/xenia-project/xenia.git
-cd ./xenia/
-#git submodule update --init --recursive --no-fetch --progress
+git clone https://github.com/xenia-canary/xenia-canary.git
+cd ./xenia-canary/
+git submodule update --init --recursive --progress
 #git submodule deinit -f premake5
 #git rm --cached premake5
 python3 xb premake --cc clang && python3 xb build --config=release && make CXX=clang++-18 CC=clang-18 CXXFLAGS="-Wno-integer-overflow -fno-lto" LDFLAGS="-fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/

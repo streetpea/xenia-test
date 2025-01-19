@@ -17,7 +17,7 @@ export AR=/usr/bin/ar
 export CXX=clang++-18
 export CC=clang-18
 #export LDFLAGS="-fno-lto"
-git submodule sync
+#git submodule sync
 git clone https://github.com/xenia-project/xenia.git
 cd ./xenia/
 git submodule update --init --recursive --progress

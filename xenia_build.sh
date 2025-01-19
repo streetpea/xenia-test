@@ -12,6 +12,8 @@ sudo ./llvm.sh 18
 sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools
 sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
 sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
+export LLVM_ENABLE_GPL=1
+export LLVM_ENABLE_LLD_BFD_PLUGIN=1
 export AR=/usr/bin/ar
 export CXXFLAGS="$CXXFLAGS -Wno-integer-overflow -flto"
 export CXX=clang++-18

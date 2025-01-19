@@ -14,6 +14,7 @@ sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools binutils-g
 sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
 sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
 export AR=llvm-ar-18
+export LD=gold
 export CXXFLAGS="$CXXFLAGS -Wno-integer-overflow -fno-lto"
 export CXX=clang++-18
 export CC=clang-18

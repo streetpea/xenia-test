@@ -11,8 +11,8 @@ wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
 sudo ./llvm.sh 18
 sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools binutils-gold lld
-sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
-sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
+#sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
+#sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
 export AR=llvm-ar-18
 export LD=ld.lld
 #export LD=gold
@@ -33,6 +33,5 @@ git submodule update --init --recursive --progress
 python3 xb premake --cc clang --devenv=cmake
 #mkdir build2/
 #cd ./build2/
-cd build
 cmake -G Ninja -DCMAKE_BUILD_TYPE=Release && ninja
 #make -v CXX=clang++-18 CC=clang-18 CXXFLAGS="-Wno-integer-overflow -fvar-tracking-assignments -fno-lto" LDFLAGS="-fvar-tracking-assignments -fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/

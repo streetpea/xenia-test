@@ -30,8 +30,7 @@ git submodule update --init --recursive --progress
 #git rm --cached premake5
 #sed -i 's,"FatalWarnings",--"FatalWarnings",g' premake5.lua
 #python3 xb premake --cc clang --devenv=cmake && python3 xb build --config=release
-python3 xb premake --cc clang --devenv=cmake
+gn gen out/release --args="is_clang=true is_debug=false" && ninja -C out/release
 #mkdir build2/
 #cd ./build2/
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release && ninja
 #make -v CXX=clang++-18 CC=clang-18 CXXFLAGS="-Wno-integer-overflow -fvar-tracking-assignments -fno-lto" LDFLAGS="-fvar-tracking-assignments -fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/

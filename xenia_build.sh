@@ -18,4 +18,4 @@ git submodule sync
 git clone https://github.com/xenia-project/xenia.git
 cd ./xenia/
 git submodule update --init --recursive --progress
-python3 xb premake --cc clang && python3 xb build --config release && make CXX=clang++ CXXFLAGS="-fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/
+python3 xb premake --cc clang && python3 xb build --config release && make CXX=clang++ -fno-lto && make install --prefix=${GITHUB_WORKSPACE}/lucas/

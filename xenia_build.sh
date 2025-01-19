@@ -3,7 +3,7 @@ echo $PATH
 set -e
 set -x
 mkdir lucas/
-sudo apt install -y findutils wget lua5.4 libgtk-3-dev liblz4-dev libglew-dev libx11-dev libsdl2-dev pkg-config curl libcurl4-gnutls-dev desktop-file-utils build-essential binutils make cmake libgtk-3-dev libpthread-stubs0-dev liblz4-dev libx11-dev libx11-xcb-dev libvulkan-dev libsdl2-dev libiberty-dev libc++-dev libc++abi-dev ninja-build python3-pip git ninja-build libvulkan-dev libxcb-keysyms1-dev libxkbcommon-dev libwayland-dev libx11-xcb-dev libxrandr-dev libgl-dev libxinerama-dev libxcursor-dev
+sudo apt install -y findutils python3-opencv wget lua5.4 libgtk-3-dev liblz4-dev libglew-dev libx11-dev libsdl2-dev pkg-config curl libcurl4-gnutls-dev desktop-file-utils build-essential binutils make cmake libgtk-3-dev libpthread-stubs0-dev liblz4-dev libx11-dev libx11-xcb-dev libvulkan-dev libsdl2-dev libiberty-dev libc++-dev libc++abi-dev ninja-build python3-pip git ninja-build libvulkan-dev libxcb-keysyms1-dev libxkbcommon-dev libwayland-dev libx11-xcb-dev libxrandr-dev libgl-dev libxinerama-dev libxcursor-dev
 #wget -c "https://github.com/premake/premake-core/releases/download/v5.0.0-beta4/premake-5.0.0-beta4-linux.tar.gz" ; tar xvf premake-5.0.0-beta4-linux.tar.gz ; chmod +x premake5 ; sudo cp premake5 /usr/bin/
 sudo apt remove --purge llvm clang -y
 sudo apt autoremove
@@ -13,7 +13,7 @@ sudo ./llvm.sh 18
 sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools binutils-gold
 sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
 sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
-export AR=/usr/bin/ar
+export AR=llvm-ar-18
 export CXXFLAGS="$CXXFLAGS -Wno-integer-overflow -fno-lto"
 export CXX=clang++-18
 export CC=clang-18

@@ -22,4 +22,4 @@ export CC=clang-18
 git clone https://github.com/xenia-project/xenia.git
 cd ./xenia/
 git submodule update --init --recursive --progress
-python3 xb premake --cc clang && python3 xb build --config release && make CXX=clang++-18 CC=clang-18 CXXFLAGS="-Wno-integer-overflow -fno-lto" LDFLAGS="-fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/
+python3 xb premake --cc clang && python3 xb build --config=release && make CXX=clang++-18 CC=clang-18 CXXFLAGS="-Wno-integer-overflow -fno-lto" LDFLAGS="-fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/

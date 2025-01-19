@@ -16,13 +16,14 @@ sudo apt install -y binutils-gold lld
 #sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
 #export AR=llvm-ar-18
 export AR=ar
-export LD=ld.lld
+export LD=ld
+#export LD=ld.lld
 #export LD=gold
 #export CXXFLAGS="$CXXFLAGS -v -Wno-integer-overflow -fuse-ld=lld -fno-lto"
 #export CXXFLAGS="-lrt"
 #export LDFLAGS="-lrt"
-export CXX=clang++-18
-export CC=clang-18
+#export CXX=clang++-18
+#export CC=clang-18
 #export LDFLAGS="-fno-lto"
 #git submodule sync
 git clone https://github.com/xenia-canary/xenia-canary.git

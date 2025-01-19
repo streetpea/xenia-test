@@ -14,10 +14,10 @@ sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools binutils-g
 sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
 sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
 export AR=/usr/bin/ar
-export CXXFLAGS="$CXXFLAGS -Wno-integer-overflow -fvar-tracking-assignments -fno-lto"
+export CXXFLAGS="$CXXFLAGS -Wno-integer-overflow -fno-lto"
 export CXX=clang++-18
 export CC=clang-18
-export LDFLAGS="-fvar-tracking-assignments -fno-lto"
+export LDFLAGS="-fno-lto"
 #git submodule sync
 git clone https://github.com/xenia-canary/xenia-canary.git
 cd ./xenia-canary/

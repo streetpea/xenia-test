@@ -15,7 +15,7 @@ sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
 sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
 export AR=llvm-ar-18
 export LD=gold
-export CXXFLAGS="$CXXFLAGS -v -Wno-integer-overflow -fno-lto"
+export CXXFLAGS="$CXXFLAGS -v -Wno-integer-overflow -fuse-ld=lld -fno-lto"
 export CXX=clang++-18
 export CC=clang-18
 export LDFLAGS="-fno-lto"

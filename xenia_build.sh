@@ -29,7 +29,7 @@ git submodule update --init --recursive --progress
 #git submodule deinit -f premake5
 #git rm --cached premake5
 #sed -i 's,"FatalWarnings",--"FatalWarnings",g' premake5.lua
-python3 xb premake --cc clang && python3 xb build --config=release
+python3 xenia-build setup --target_os=linux && python3 xb premake --cc clang && python3 xb build --config=release
 #mkdir build2/
 #cd ./build2/
 #make -v CXX=clang++-18 CC=clang-18 CXXFLAGS="-Wno-integer-overflow -fvar-tracking-assignments -fno-lto" LDFLAGS="-fvar-tracking-assignments -fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/

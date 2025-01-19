@@ -10,7 +10,7 @@ sudo apt autoremove -y
 wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
 sudo ./llvm.sh 18
-sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools binutils-gold lld
+sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools binutils-gold lld clang-tools
 #sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
 #sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
 export AR=llvm-ar-18

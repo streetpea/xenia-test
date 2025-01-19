@@ -34,5 +34,5 @@ python3 xb premake --cc clang --devenv=cmake
 #mkdir build2/
 #cd ./build2/
 cd build
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Release .. && ninja
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Release && ninja
 #make -v CXX=clang++-18 CC=clang-18 CXXFLAGS="-Wno-integer-overflow -fvar-tracking-assignments -fno-lto" LDFLAGS="-fvar-tracking-assignments -fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/

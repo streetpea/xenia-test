@@ -29,7 +29,7 @@ jobs:
         run: |
           sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
           pacman -Sy --noconfirm
-          pacman -S pacman-contrib
+          pacman -S pacman-contrib --noconfirm
           rankmirrors -n 6 /etc/pacman.d/mirrorlist
           #tee /etc/pacman.d/mirrorlist > /dev/null <<EOL
           #Server = https://artix.wheaton.edu/repos/$repo/os/$arch

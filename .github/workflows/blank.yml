@@ -28,6 +28,7 @@ jobs:
       - name: Make AppImage
         run: |
           sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
+          pacman -Sy --noconfirm
           pacman -S pacman-contrib
           rankmirrors -n 6 /etc/pacman.d/mirrorlist
           #tee /etc/pacman.d/mirrorlist > /dev/null <<EOL

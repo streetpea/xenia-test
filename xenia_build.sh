@@ -28,7 +28,7 @@ wget -c -q "https://sdk.lunarg.com/sdk/download/1.4.304.0/linux/vulkansdk-linux-
 git clone https://github.com/xenia-canary/xenia-canary.git
 cd ./xenia-canary/
 git submodule update --init --recursive --progress
-make clean
+#make clean
 export CFLAGS=-O2
 cp -f ${GITHUB_WORKSPACE}/main_init_posix.cc ./src/xenia/base/
 #git submodule deinit -f premake5

@@ -29,7 +29,7 @@ jobs:
         run: |
           sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
           tee /etc/pacman.d/mirrorlist > /dev/null <<EOL
-          Server = https://br.mirror.archlinux-br.org/artix/\$repo/os/\$arch
+          Server = https://mirrors.rit.edu/artixlinux/$repo/os/$arch
           EOL
           pacman -Syu --noconfirm
           pacman -Syu --noconfirm artix-archlinux-support xorg-server-xvfb

@@ -28,8 +28,9 @@ jobs:
       - name: Make AppImage
         run: |
           sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
-          pacman -S reflector
-          reflector --age 6 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+          pacman -S pacman-contrib --noconfirm
+          cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+          grep '^Server' /etc/pacman.d/mirrorlist.bak | rankmirrors -n 5 > /etc/pacman.d/mirrorlist
           pacman -Syu --noconfirm artix-archlinux-support xorg-server-xvfb
           chmod +x ./xenia_build.sh
           ./xenia_build.sh

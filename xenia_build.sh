@@ -3,14 +3,15 @@ echo $PATH
 set -e
 set -x
 mkdir lucas/
-sudo apt install -y cmake git findutils ninja-build libc6-dev build-essential software-properties-common gpg lsb-release python3-opencv wget lua5.4 libgtk-3-dev liblz4-dev libglew-dev libx11-dev libsdl2-dev pkg-config curl libcurl4-gnutls-dev desktop-file-utils binutils make cmake libgtk-3-dev libpthread-stubs0-dev liblz4-dev libx11-dev libx11-xcb-dev libvulkan-dev libsdl2-dev libiberty-dev libc++-dev libc++abi-dev ninja-build python3-pip git ninja-build libvulkan-dev libxcb-keysyms1-dev libxkbcommon-dev libwayland-dev libx11-xcb-dev libxrandr-dev libgl-dev libxinerama-dev libxcursor-dev
+sudo pacman -Syu --noconfirm cmake git findutils ninja gcc base-devel gpg lsb-release python-opencv wget lua gtk3 lz4 glew libx11 sdl2 pkgconf curl libcurl-gnutls desktop-file-utils binutils make cmake gtk3 libpthread-stubs lz4 libx11 libx11-xcb vulkan-icd-loader sdl2 lib32-libunwind libc++ libc++abi python-pip vulkan-headers xcb-util-keysyms xkbcommon wayland libxrandr mesa libxinerama libxcursor binutils clang-tools-extra
+#sudo apt install -y cmake git findutils ninja-build libc6-dev build-essential software-properties-common gpg lsb-release python3-opencv wget lua5.4 libgtk-3-dev liblz4-dev libglew-dev libx11-dev libsdl2-dev pkg-config curl libcurl4-gnutls-dev desktop-file-utils binutils make cmake libgtk-3-dev libpthread-stubs0-dev liblz4-dev libx11-dev libx11-xcb-dev libvulkan-dev libsdl2-dev libiberty-dev libc++-dev libc++abi-dev ninja-build python3-pip git ninja-build libvulkan-dev libxcb-keysyms1-dev libxkbcommon-dev libwayland-dev libx11-xcb-dev libxrandr-dev libgl-dev libxinerama-dev libxcursor-dev
 #wget -c "https://github.com/premake/premake-core/releases/download/v5.0.0-beta4/premake-5.0.0-beta4-linux.tar.gz" ; tar xvf premake-5.0.0-beta4-linux.tar.gz ; chmod +x premake5 ; sudo cp premake5 /usr/bin/
-sudo apt remove --purge llvm clang -y
-sudo apt autoremove -y
-wget https://apt.llvm.org/llvm.sh
-chmod +x llvm.sh
-sudo ./llvm.sh 18
-sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools binutils-gold lld clang-tools
+#sudo apt remove --purge llvm clang -y
+#sudo apt autoremove -y
+#wget https://apt.llvm.org/llvm.sh
+#chmod +x llvm.sh
+#sudo ./llvm.sh 18
+#sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools binutils-gold lld clang-tools
 #sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
 #sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
 export AR=llvm-ar-18

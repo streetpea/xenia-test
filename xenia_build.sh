@@ -4,7 +4,7 @@ set -e
 set -x
 mkdir lucas/
 pacman -Syu --noconfirm llvm cmake git jack2 findutils ninja gcc base-devel gnupg lsb-release python-opencv wget lua gtk3 lz4 glew libx11 sdl2 pkgconf curl desktop-file-utils binutils make vulkan-icd-loader vulkan-tools vulkan-headers sdl2 vulkan-headers xcb-util-keysyms xkeyboard-config wayland libxrandr mesa libxinerama libxcursor binutils clang-tools-extra
-wget -c -q "https://sdk.lunarg.com/sdk/download/1.4.304.0/linux/vulkansdk-linux-x86_64-1.4.304.0.tar.xz" ; tar xvf vulkansdk-linux-x86_64-1.4.304.0.tar.xz ; cd ./1.4.304.0/ ; ./setup-env.sh ; cd ..
+wget -c -q "https://sdk.lunarg.com/sdk/download/1.4.304.0/linux/vulkansdk-linux-x86_64-1.4.304.0.tar.xz" ; tar xvf vulkansdk-linux-x86_64-1.4.304.0.tar.xz ; cd ./1.4.304.0/ ; chmod +x setup-env.sh ; ./setup-env.sh ; cd ..
 #sudo apt install -y cmake git findutils ninja-build libc6-dev build-essential software-properties-common gpg lsb-release python3-opencv wget lua5.4 libgtk-3-dev liblz4-dev libglew-dev libx11-dev libsdl2-dev pkg-config curl libcurl4-gnutls-dev desktop-file-utils binutils make cmake libgtk-3-dev libpthread-stubs0-dev liblz4-dev libx11-dev libx11-xcb-dev libvulkan-dev libsdl2-dev libiberty-dev libc++-dev libc++abi-dev ninja-build python3-pip git ninja-build libvulkan-dev libxcb-keysyms1-dev libxkbcommon-dev libwayland-dev libx11-xcb-dev libxrandr-dev libgl-dev libxinerama-dev libxcursor-dev
 #wget -c "https://github.com/premake/premake-core/releases/download/v5.0.0-beta4/premake-5.0.0-beta4-linux.tar.gz" ; tar xvf premake-5.0.0-beta4-linux.tar.gz ; chmod +x premake5 ; sudo cp premake5 /usr/bin/
 #sudo apt remove --purge llvm clang -y

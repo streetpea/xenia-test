@@ -20,12 +20,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: artixlinux/artixlinux:latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
       - name: Make AppImage
         run: |
+          sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
+          pacman -Syu --noconfirm artix-archlinux-support xorg-server-xvfb
           chmod +x ./xenia_build.sh
           ./xenia_build.sh
           mkdir dist

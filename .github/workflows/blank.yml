@@ -28,9 +28,11 @@ jobs:
       - name: Make AppImage
         run: |
           sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
-          pacman -S pacman-contrib --noconfirm
-          cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
-          grep '^Server' /etc/pacman.d/mirrorlist.bak | rankmirrors -n 5 > /etc/pacman.d/mirrorlist
+          tee /etc/pacman.d/mirrorlist > /dev/null <<EOL
+          Server = https://mirror.dacentec.com/artix-linux/repos/\$repo/os/\$arch
+          Server = https://mirror.ppa.trinitydesktop.org/artix/\$repo/os/\$arch
+          Server = https://america.mirror.pkgbuild.com/artix/\$repo/os/\$arch
+          EOL
           pacman -Syu --noconfirm artix-archlinux-support xorg-server-xvfb
           chmod +x ./xenia_build.sh
           ./xenia_build.sh

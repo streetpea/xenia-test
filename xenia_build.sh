@@ -14,7 +14,7 @@ pacman -Syu --noconfirm cmake git jack2 findutils ninja gcc base-devel gnupg lsb
 #sudo apt install -y llvm-18 llvm-18-dev clang-18 lld-18 llvm-18-tools binutils-gold lld clang-tools
 #sudo ln -sf /usr/bin/clang-18 /usr/bin/clang
 #sudo ln -sf /usr/bin/llvm-config-18 /usr/bin/llvm-config
-export AR=llvm-ar-18
+#export AR=llvm-ar-18
 #export LD=ld.lld
 #export LD=gold
 #export CXXFLAGS="$CXXFLAGS -v -Wno-integer-overflow -fuse-ld=lld -fno-lto"

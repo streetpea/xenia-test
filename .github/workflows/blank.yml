@@ -31,6 +31,7 @@ jobs:
           tee /etc/pacman.d/mirrorlist > /dev/null <<EOL
           Server = https://artix.wheaton.edu/repos/$repo/os/$arch
           EOL
+          pacman -Scc --noconfirm
           pacman -Syu --noconfirm
           pacman -Syu --noconfirm artix-archlinux-support xorg-server-xvfb
           chmod +x ./xenia_build.sh

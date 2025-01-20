@@ -33,6 +33,7 @@ jobs:
           Server = https://mirror.ppa.trinitydesktop.org/artix/\$repo/os/\$arch
           Server = https://america.mirror.pkgbuild.com/artix/\$repo/os/\$arch
           EOL
+          pacman -Syu --noconfirm
           pacman -Syu --noconfirm artix-archlinux-support xorg-server-xvfb
           chmod +x ./xenia_build.sh
           ./xenia_build.sh

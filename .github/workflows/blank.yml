@@ -29,9 +29,7 @@ jobs:
         run: |
           sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
           tee /etc/pacman.d/mirrorlist > /dev/null <<EOL
-          Server = https://mirror.dacentec.com/artix-linux/repos/\$repo/os/\$arch
-          Server = https://mirror.ppa.trinitydesktop.org/artix/\$repo/os/\$arch
-          Server = https://america.mirror.pkgbuild.com/artix/\$repo/os/\$arch
+          Server = https://br.mirror.archlinux-br.org/artix/\$repo/os/\$arch
           EOL
           pacman -Syu --noconfirm
           pacman -Syu --noconfirm artix-archlinux-support xorg-server-xvfb

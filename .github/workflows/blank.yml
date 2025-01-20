@@ -28,9 +28,11 @@ jobs:
       - name: Make AppImage
         run: |
           sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
-          tee /etc/pacman.d/mirrorlist > /dev/null <<EOL
-          Server = https://artix.wheaton.edu/repos/$repo/os/$arch
-          EOL
+          pacman -S pacman-contrib
+          rankmirrors -n 6 /etc/pacman.d/mirrorlist
+          #tee /etc/pacman.d/mirrorlist > /dev/null <<EOL
+          #Server = https://artix.wheaton.edu/repos/$repo/os/$arch
+          #EOL
           pacman -Scc --noconfirm
           pacman -Syu --noconfirm
           pacman -Syu --noconfirm artix-archlinux-support xorg-server-xvfb

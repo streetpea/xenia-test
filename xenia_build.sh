@@ -45,18 +45,10 @@ xvfb-run -a -- ./lib4bin -p -v -r -e -s -k ../build/bin/Linux/Release/xenia-cana
   /usr/lib/libEGL* \
 	/usr/lib/dri/* \
 	/usr/lib/libvulkan* \
-	/usr/lib/qt6/plugins/iconengines/* \
-	/usr/lib/qt6/plugins/imageformats/* \
-	/usr/lib/qt6/plugins/platforms/* \
-	/usr/lib/qt6/plugins/platformthemes/* \
-	/usr/lib/qt6/plugins/styles/* \
-	/usr/lib/qt6/plugins/xcbglintegrations/* \
-	/usr/lib/qt6/plugins/wayland-*/* \
 	/usr/lib/pipewire-0.3/* \
 	/usr/lib/spa-0.2/*/* \
 	/usr/lib/alsa-lib/*
- ln ./sharun ./AppRun
- ./sharun -g
+ ln ./bin/xenia-canary ./AppRun
  cp ${GITHUB_WORKSPACE}/Xenia-canary.desktop . ; cp ${GITHUB_WORKSPACE}/xenia.png .
  cd ..
  ./APPIMAGETOOL -n lucas/

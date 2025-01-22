@@ -1,5 +1,4 @@
 #!/bin/bash
-echo $PATH
 set -e
 set -x
 mkdir lucas/

@@ -4,7 +4,6 @@ set -x
 pacman -Syu --noconfirm linux-headers llvm cmake git desktop-file-utils pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber findutils ninja gcc base-devel gnupg lsb-release python-opencv wget lua gtk3 lz4 glew libx11 sdl2 pkgconf curl desktop-file-utils binutils make vulkan-icd-loader vulkan-tools vulkan-headers sdl2 vulkan-headers xcb-util-keysyms xkeyboard-config wayland libxrandr mesa libxinerama libxcursor binutils clang-tools-extra
 LIB4BN="https://raw.githubusercontent.com/VHSgunzo/sharun/refs/heads/main/lib4bin"
 APPIMAGETOOL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
-mkdir lucas/
 wget -c -q "$LIB4BN" ; chmod +x lib4bin ; mkdir lucas/ ; cp lib4bin ./lucas/
 wget -c -q "$APPIMAGETOOL" -O APPIMAGETOOL ; chmod +x APPIMAGETOOL
 #wget -c -q "https://sdk.lunarg.com/sdk/download/1.4.304.0/linux/vulkansdk-linux-x86_64-1.4.304.0.tar.xz" ; tar xvf vulkansdk-linux-x86_64-1.4.304.0.tar.xz ; cd ./1.4.304.0/ ; chmod +x setup-env.sh ; ./setup-env.sh ; cd ..

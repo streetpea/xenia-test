@@ -40,7 +40,7 @@ cp -f ${GITHUB_WORKSPACE}/main_init_posix.cc ./src/xenia/base/
 python3 xenia-build setup --target_os=linux && python3 xb premake --cc gcc && python3 xb build --config=release
 cd ./lucas/
 mkdir bin/
-xvfb-run -a -- find ../build/ -executable -iname 'xenia' -type f | xargs -i -t -exec ./lib4bin -p -v -r -e -s -k {} \
+xvfb-run -a -- find ../build/bin/Linux/Release/ -executable -iname 'xenia*' -type f | xargs -i -t -exec ./lib4bin -p -v -r -e -s -k {} \
   /usr/lib/libGLX* \
   /usr/lib/libstdc++* \
   /usr/lib/libEGL* \

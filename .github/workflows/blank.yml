@@ -88,7 +88,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: "Lutris AppImage ${{ env.APP_VERSION }}"
+          name: "Xenia AppImage ${{ env.APP_VERSION }}"
           tag_name: "${{ env.APP_VERSION }}"
           prerelease: false
           draft: false

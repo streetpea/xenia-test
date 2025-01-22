@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Xenia-canary
+Exec=xenia-canary
+Icon=xenia
+Categories=Game;Emulator;
+Terminal=false
+StartupNotify=false

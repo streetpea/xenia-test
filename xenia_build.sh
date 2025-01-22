@@ -50,7 +50,7 @@ xvfb-run -a -- find ../build/bin/Linux/Release/ -executable -iname 'xenia*' -typ
 	/usr/lib/spa-0.2/*/* \
 	/usr/lib/alsa-lib/*
  find ../build/ -executable -iname 'xenia*' -type f | xargs -i -t -exec cp -f {} ./bin/
- ln -frs ./bin/xenia* AppRun
+ ln -frs ./bin/xenia_canary AppRun
  cp ${GITHUB_WORKSPACE}/Xenia-canary.desktop . ; cp ${GITHUB_WORKSPACE}/xenia.png .
  cd ..
  ./APPIMAGETOOL -n lucas/

@@ -4,8 +4,6 @@ set -x
 pacman -Syu --noconfirm linux-headers llvm cmake git desktop-file-utils pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber findutils ninja gcc base-devel gnupg lsb-release python-opencv wget lua gtk3 lz4 glew libx11 sdl2 pkgconf curl desktop-file-utils binutils make vulkan-icd-loader vulkan-tools vulkan-headers sdl2 vulkan-headers xcb-util-keysyms xkeyboard-config wayland libxrandr mesa libxinerama libxcursor binutils clang-tools-extra
 LIB4BN="https://raw.githubusercontent.com/VHSgunzo/sharun/refs/heads/main/lib4bin"
 APPIMAGETOOL="https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
-wget -c -q "$LIB4BN" ; chmod +x lib4bin ; mkdir lucas/ ; cp lib4bin ./lucas/
-wget -c -q "$APPIMAGETOOL" -O APPIMAGETOOL ; chmod +x APPIMAGETOOL
 #wget -c -q "https://sdk.lunarg.com/sdk/download/1.4.304.0/linux/vulkansdk-linux-x86_64-1.4.304.0.tar.xz" ; tar xvf vulkansdk-linux-x86_64-1.4.304.0.tar.xz ; cd ./1.4.304.0/ ; chmod +x setup-env.sh ; ./setup-env.sh ; cd ..
 #sudo apt install -y cmake git findutils ninja-build libc6-dev build-essential software-properties-common gpg lsb-release python3-opencv wget lua5.4 libgtk-3-dev liblz4-dev libglew-dev libx11-dev libsdl2-dev pkg-config curl libcurl4-gnutls-dev desktop-file-utils binutils make cmake libgtk-3-dev libpthread-stubs0-dev liblz4-dev libx11-dev libx11-xcb-dev libvulkan-dev libsdl2-dev libiberty-dev libc++-dev libc++abi-dev ninja-build python3-pip git ninja-build libvulkan-dev libxcb-keysyms1-dev libxkbcommon-dev libwayland-dev libx11-xcb-dev libxrandr-dev libgl-dev libxinerama-dev libxcursor-dev
 #wget -c "https://github.com/premake/premake-core/releases/download/v5.0.0-beta4/premake-5.0.0-beta4-linux.tar.gz" ; tar xvf premake-5.0.0-beta4-linux.tar.gz ; chmod +x premake5 ; sudo cp premake5 /usr/bin/
@@ -30,6 +28,8 @@ wget -c -q "$APPIMAGETOOL" -O APPIMAGETOOL ; chmod +x APPIMAGETOOL
 git clone https://github.com/xenia-canary/xenia-canary.git
 cd ./xenia-canary/
 git submodule update --init --recursive --progress
+wget -c -q "$LIB4BN" ; chmod +x lib4bin ; mkdir lucas/ ; cp lib4bin ./lucas/
+wget -c -q "$APPIMAGETOOL" -O APPIMAGETOOL ; chmod +x APPIMAGETOOL
 #make clean
 #export CFLAGS=-O2
 #export CXXFLAGS="$CXXFLAGS -g0 -fno-lto"
@@ -56,6 +56,7 @@ xvfb-run -a -- ./lib4bin -p -v -r -e -s -k ../build/bin/Linux/Release/xenia-cana
 	/usr/lib/spa-0.2/*/* \
 	/usr/lib/alsa-lib/*
  ln ./sharun ./AppRun
+ ./sharun -g
  cp ${GITHUB_WORKSPACE}/Xenia-canary.desktop . ; cp ${GITHUB_WORKSPACE}/xenia.png .
  cd ..
  ./APPIMAGETOOL -n lucas/

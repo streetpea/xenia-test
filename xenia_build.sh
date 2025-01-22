@@ -53,7 +53,7 @@ xvfb-run -a -- find ../build/bin/Linux/Release/ -executable -iname 'xenia*' -typ
  ln -frs ./bin/xenia_canary AppRun
  cp ${GITHUB_WORKSPACE}/Xenia-canary.desktop . ; cp ${GITHUB_WORKSPACE}/xenia.png .
  cd ..
- ./APPIMAGETOOL -n lucas/
+ ARCH=x86_64 ./APPIMAGETOOL --appimage-extract-and-run -n lucas/
 #mkdir build2/
 #cd ./build2/
 #make -v CXX=clang++-18 CC=clang-18 CXXFLAGS="-Wno-integer-overflow -fvar-tracking-assignments -fno-lto" LDFLAGS="-fvar-tracking-assignments -fno-lto" && make install --prefix=${GITHUB_WORKSPACE}/lucas/

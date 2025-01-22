@@ -39,7 +39,7 @@ cp -f ${GITHUB_WORKSPACE}/main_init_posix.cc ./src/xenia/base/
 #sed -i 's,"FatalWarnings",--"FatalWarnings",g' premake5.lua
 python3 xenia-build setup --target_os=linux && python3 xb premake --cc gcc && python3 xb build --config=release
 cd ./lucas/
-xvfb-run -a -- ./lib4bin -p -v -r -e -s -k ../build/bin/Linux/Release/xenia-canary \
+xvfb-run -a -- find -iname ../build/ 'xenia' -type f | xarhs -i -t -exec ./lib4bin -p -v -r -e -s -k {} \
   /usr/lib/libGLX* \
   /usr/lib/libstdc++* \
   /usr/lib/libEGL* \
@@ -48,7 +48,8 @@ xvfb-run -a -- ./lib4bin -p -v -r -e -s -k ../build/bin/Linux/Release/xenia-cana
 	/usr/lib/pipewire-0.3/* \
 	/usr/lib/spa-0.2/*/* \
 	/usr/lib/alsa-lib/*
- ln ./bin/xenia-canary ./AppRun
+ ln ./sharun ./AppRun
+ sharun -g
  cp ${GITHUB_WORKSPACE}/Xenia-canary.desktop . ; cp ${GITHUB_WORKSPACE}/xenia.png .
  cd ..
  ./APPIMAGETOOL -n lucas/

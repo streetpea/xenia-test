@@ -4,7 +4,7 @@ name: Xenia CI
 on:
   # Build at 00:00 every 6th day
   schedule:
-    - cron: "0 0 */6 * *"
+    - cron: "0 0 */7 * *"
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
@@ -25,76 +25,142 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name: Make AppImage
+      - name: Install dependencies
         run: |
           sed -i 's/DownloadUser/#DownloadUser/g' /etc/pacman.conf
-          pacman -Sy --noconfirm
-          pacman -S pacman-contrib --noconfirm
-          rankmirrors -n 6 /etc/pacman.d/mirrorlist
-          #tee /etc/pacman.d/mirrorlist > /dev/null <<EOL
-          #Server = https://artix.wheaton.edu/repos/$repo/os/$arch
-          #EOL
-          pacman -Scc --noconfirm
-          pacman -Syu --noconfirm
-          pacman -Syu --noconfirm artix-archlinux-support xorg-server-xvfb
+          pacman -Syu --noconfirm base-devel \
+            cmake \
+            strace \
+            patchelf \
+            curl \
+            wget \
+            git \
+            artix-archlinux-support \
+            llvm \
+            mesa \
+            xorg-server-xvfb \
+            vulkan-radeon \
+            vulkan-intel \
+            vulkan-nouveau
+
+          pacman-key --init && pacman-key --populate archlinux
+          printf "\n[extra]\nInclude = /etc/pacman.d/mirrorlist-arch\n" | tee -a /etc/pacman.conf
+
+          cat /etc/pacman.conf
+          sudo sed -i 's/NoExtract/#NoExtract/g' /etc/pacman.conf
+
+          pacman -Syu --noconfirm linux-headers \
+            binutils \
+            findutils \
+            coreutils \
+            cmake \
+            pipewire \
+            pulseaudio \
+            pulseaudio-alsa \
+            findutils \
+            ninja \
+            gnupg \
+            lsb-release \
+            python-opencv \
+            lua \
+            gtk3 \
+            lz4 \
+            glew \
+            libx11 \
+            sdl2 \
+            pkgconf \
+            binutils \
+            vulkan-icd-loader \
+            vulkan-tools \
+            vulkan-headers \
+            xcb-util-keysyms \
+            xkeyboard-config \
+            wayland \
+            libxrandr \
+            libxinerama \
+            libxcursor \
+            clang-tools-extra
+
+      - name: Make AppImage
+        run: |
           chmod +x ./xenia_build.sh
           ./xenia_build.sh
           mkdir dist
           echo "$PWD"
           ls .
           find -iname 'Xenia-canary-x86_64.AppImage' -type f | xargs -i -t -exec mv {} dist/
-          echo "latest" > dist/version # Define version dynamically if needed
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: AppImage
-          path: 'dist/*.AppImage*'
-
-      - name: Upload version artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: version
-          path: 'dist/version'
-
-  release:
-    needs: [build]
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download AppImage artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: AppImage
-
-      - name: Download version artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: version
-
-      - name: Read version
-        id: version
-        run: echo "APP_VERSION=$(cat version)" >> $GITHUB_ENV
-
-      - name: Delete Previous Release
+      - name: Check version file
         run: |
-          gh release delete "${APP_VERSION}" --repo "${GITHUB_REPOSITORY}" --cleanup-tag -y || echo "No release to delete"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
+         cat ~/version
+         echo "APP_VERSION=$(cat ~/version)" >> "${GITHUB_ENV}"
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.4.3
         with:
-          name: "Xenia AppImage ${{ env.APP_VERSION }}"
-          tag_name: "${{ env.APP_VERSION }}"
-          prerelease: false
-          draft: false
-          generate_release_notes: false
-          make_latest: true
-          files: |
-            *.AppImage*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: AppImage
+          path: 'dist'
+          
+      - name: Upload version file
+        uses: actions/upload-artifact@v4.4.3
+        with:
+         name: version
+         path: ~/version
+    
+  release:
+      needs: [build]
+      permissions: write-all
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/download-artifact@v4.1.8
+          with:
+            name: AppImage
+        - uses: actions/download-artifact@v4.1.8
+          with:
+            name: version
+
+        - name: Read version
+          run: |
+            cat version
+            export VERSION="$(<version)"
+            echo "APP_VERSION=${VERSION}" >> "${GITHUB_ENV}"
+    
+        #Version Release
+        - name: Del Previous Release
+          run: |
+            gh release delete "${APP_VERSION}" --repo "${GITHUB_REPOSITORY}" --cleanup-tag  -y
+          env:
+            GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          continue-on-error: true
+        - name: Continuous Releaser
+          uses: softprops/action-gh-release@v2
+          with:
+            name: "Xenia AppImage ${{ env.APP_VERSION }}"
+            tag_name: "${{ env.APP_VERSION}}"
+            prerelease: false
+            draft: false
+            generate_release_notes: false
+            make_latest: true
+            files: |
+              *.AppImage*
+          continue-on-error: false
+
+        #Snapshot Release
+        - name: Get Date
+          run: |
+            SNAPSHOT_TAG="$(date --utc +'%Y%m%d-%H%M%S')"
+            echo SNAPSHOT_TAG="${SNAPSHOT_TAG}" >> "${GITHUB_ENV}"
+          continue-on-error: false
+        - name: Snapshot Releaser
+          uses: softprops/action-gh-release@v2
+          with:
+            name: "Snapshot ${{ env.APP_VERSION }}"
+            tag_name: "${{ env.SNAPSHOT_TAG }}"
+            prerelease: false
+            draft: false
+            generate_release_notes: false
+            make_latest: false
+            files: |
+              *.AppImage*
+          continue-on-error: false

@@ -13,9 +13,9 @@
         "cd xenia-canary && python3 xenia-build setup --target_os=linux",
         "python3 xb premake --cc gcc",
         "python3 xb build --config=release",
-        "install -Dm755 build/bin/Linux/Release/xenia-canary \$FLATPAK_DEST/bin/xenia-canary",
-        "install -Dm644 assets/icon/256.png \$FLATPAK_DEST/share/icons/hicolor/256x256/apps/xenia.png",
-        "install -Dm644 org.xenia.Canary.desktop \$FLATPAK_DEST/share/applications/org.xenia.Canary.desktop"
+        "install -Dm755 build/bin/Linux/Release/xenia-canary $FLATPAK_DEST/bin/xenia-canary",
+        "install -Dm644 assets/icon/256.png $FLATPAK_DEST/share/icons/hicolor/256x256/apps/xenia.png",
+        "install -Dm644 org.xenia.Canary.desktop $FLATPAK_DEST/share/applications/org.xenia.Canary.desktop"
       ],
       "sources": [
         {
@@ -45,8 +45,13 @@
         "--socket=wayland",
         "--share=network",
         "--talk-name=org.freedesktop.ScreenSaver",
-        "--talk-name=org.mate.ScreenSaver"
+        "--talk-name=org.mate.ScreenSaver",
+        "--socket=vulkan",
+        "--share=alsa"
       ]
     }
+  ],
+  "runtime-repo": [
+    "https://dl.flathub.org/repo/flathub.flatpakrepo"
   ]
 }

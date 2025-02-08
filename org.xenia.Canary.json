@@ -51,7 +51,5 @@
       ]
     }
   ],
-  "runtime-repo": [
-    "https://dl.flathub.org/repo/flathub.flatpakrepo"
-  ]
+  "runtime-repo": "https://dl.flathub.org/repo/flathub.flatpakrepo"
 }

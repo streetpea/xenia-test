@@ -41,7 +41,7 @@
         "--share=network",
         "--talk-name=org.freedesktop.ScreenSaver",
         "--talk-name=org.mate.ScreenSaver",
-        "--socket=vulkan",
+        "--socket=gpu",
         "--share=alsa"
       ]
     }

@@ -43,4 +43,8 @@ jobs:
 
       - name: Build Flatpak package
         run: |
-          flatpak-builder --force-clean --bundle build-dir org.xenia.Canary.json
+          flatpak-builder --force-clean build-dir org.xenia.Canary.json
+
+      - name: Bundle Flatpak app
+        run: |
+          flatpak build-bundle build-dir example.flatpak org.xenia.Canary --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo

@@ -20,13 +20,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt update
-          sudo apt install -y \
+          apt update
+          apt install -y \
             build-essential \
             cmake \
             curl \
             wget \
             git \
+            flatpak \
+            flatpak-builder \
             python3 \
             python3-pip \
             python3-setuptools \

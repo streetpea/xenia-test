@@ -27,17 +27,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt update
-          apt install -y sudo
-          sudo apt install -y \
-            flatpak \
-            git \
-            build-essential \
+          pacman -Syu --noconfirm base-devel \
             cmake \
             strace \
             patchelf \
             curl \
             wget \
+            git \
             llvm \
             mesa \
             vulkan-tools \

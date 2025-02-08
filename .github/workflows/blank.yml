@@ -1,30 +1,23 @@
 name: Xenia CI
 
-# Controls when the action will run.
 on:
-  # Build at 00:00 every 6th day
   schedule:
     - cron: "0 0 */7 * *"
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
     paths-ignore: [ '**/README.md' ]
   pull_request:
     branches: [ main ]
     paths-ignore: [ '**/README.md' ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Install Flatpak and Dependencies
         run: |
           sudo apt update
           sudo apt install --no-install-recommends -y \
@@ -37,93 +30,98 @@ jobs:
             git \
             llvm \
             mesa-utils \
-            vulkan-utils \
+            vulkan-tools \
             xorg-dev \
             python3 \
             python3-pip \
             python3-setuptools \
-            python3-wheel
+            python3-wheel \
+            flatpak \
+            flatpak-builder \
+            libglib2.0-dev \
+            libvulkan-dev \
+            libssl-dev
 
-      - name: Make AppImage
+      - name: Setup Flatpak Builder Environment
         run: |
-          chmod +x ./xenia_build.sh
-          ./xenia_build.sh
-          mkdir dist
-          echo "$PWD"
-          ls .
-          find -iname 'Xenia-canary-x86_64.AppImage' -type f | xargs -i -t -exec mv {} dist/
+          flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak update --appstream --assumeyes
 
-      - name: Check version file
+      - name: Build Xenia Flatpak
         run: |
-         cat ~/version
-         echo "APP_VERSION=$(cat ~/version)" >> "${GITHUB_ENV}"
-      
-      - name: Upload artifact
+          # Build the Flatpak using flatpak-builder
+          flatpak-builder --user --install --force-clean --repo=repo build-dir com.xenia.Xenia.json
+
+      - name: Verify Build
+        run: |
+          flatpak list --app
+          flatpak info com.xenia.Xenia
+
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.4.3
         with:
-          name: AppImage
-          path: 'dist'
-          
+          name: Flatpak
+          path: 'repo/*.flatpak'
+
       - name: Upload version file
         uses: actions/upload-artifact@v4.4.3
         with:
-         name: version
-         path: ~/version
-    
+          name: version
+          path: ~/version
+
   release:
-      needs: [build]
-      permissions: write-all
-      runs-on: ubuntu-latest
+    needs: [build]
+    permissions: write-all
+    runs-on: ubuntu-latest
 
-      steps:
-        - uses: actions/download-artifact@v4.1.8
-          with:
-            name: AppImage
-        - uses: actions/download-artifact@v4.1.8
-          with:
-            name: version
+    steps:
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: Flatpak
+      - uses: actions/download-artifact@v4.1.8
+        with:
+          name: version
 
-        - name: Read version
-          run: |
-            cat version
-            export VERSION="$(<version)"
-            echo "APP_VERSION=${VERSION}" >> "${GITHUB_ENV}"
-    
-        #Version Release
-        - name: Del Previous Release
-          run: |
-            gh release delete "${APP_VERSION}" --repo "${GITHUB_REPOSITORY}" --cleanup-tag  -y
-          env:
-            GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          continue-on-error: true
-        - name: Continuous Releaser
-          uses: softprops/action-gh-release@v2
-          with:
-            name: "Xenia AppImage ${{ env.APP_VERSION }}"
-            tag_name: "${{ env.APP_VERSION}}"
-            prerelease: false
-            draft: false
-            generate_release_notes: false
-            make_latest: true
-            files: |
-              *.AppImage*
-          continue-on-error: false
+      - name: Read version
+        run: |
+          cat version
+          export VERSION="$(<version)"
+          echo "APP_VERSION=${VERSION}" >> "${GITHUB_ENV}"
 
-        #Snapshot Release
-        - name: Get Date
-          run: |
-            SNAPSHOT_TAG="$(date --utc +'%Y%m%d-%H%M%S')"
-            echo SNAPSHOT_TAG="${SNAPSHOT_TAG}" >> "${GITHUB_ENV}"
-          continue-on-error: false
-        - name: Snapshot Releaser
-          uses: softprops/action-gh-release@v2
-          with:
-            name: "Snapshot ${{ env.APP_VERSION }}"
-            tag_name: "${{ env.SNAPSHOT_TAG }}"
-            prerelease: false
-            draft: false
-            generate_release_notes: false
-            make_latest: false
-            files: |
-              *.AppImage*
-          continue-on-error: false
+      - name: Del Previous Release
+        run: |
+          gh release delete "${APP_VERSION}" --repo "${GITHUB_REPOSITORY}" --cleanup-tag -y
+        env:
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        continue-on-error: true
+
+      - name: Continuous Releaser
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Xenia Flatpak ${{ env.APP_VERSION }}"
+          tag_name: "${{ env.APP_VERSION}}"
+          prerelease: false
+          draft: false
+          generate_release_notes: false
+          make_latest: true
+          files: |
+            *.flatpak*
+
+      - name: Get Date
+        run: |
+          SNAPSHOT_TAG="$(date --utc +'%Y%m%d-%H%M%S')"
+          echo SNAPSHOT_TAG="${SNAPSHOT_TAG}" >> "${GITHUB_ENV}"
+        continue-on-error: false
+
+      - name: Snapshot Releaser
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Snapshot ${{ env.APP_VERSION }}"
+          tag_name: "${{ env.SNAPSHOT_TAG }}"
+          prerelease: false
+          draft: false
+          generate_release_notes: false
+          make_latest: false
+          files: |
+            *.flatpak*
+        continue-on-error: false

@@ -15,7 +15,7 @@
         "python3 xb build --config=release",
         "install -Dm755 build/bin/Linux/Release/xenia-canary $FLATPAK_DEST/bin/xenia-canary",
         "install -Dm644 assets/icon/256.png $FLATPAK_DEST/share/icons/hicolor/256x256/apps/xenia.png",
-        "install -Dm644 org.xenia.Canary.desktop $FLATPAK_DEST/share/applications/org.xenia.Canary.desktop"
+        "install -Dm644 Xenia-canary.desktop $FLATPAK_DEST/share/applications/org.xenia.Canary.desktop"
       ],
       "sources": [
         {
@@ -31,7 +31,8 @@
         },
         {
           "type": "file",
-          "path": "org.xenia.Canary.desktop"
+          "url": "https://raw.githubusercontent.com/Twig6943/XeniaTest/refs/heads/main/Xenia-canary.desktop",
+          "dest-filename": "Xenia-canary.desktop"
         }
       ],
       "finish-args": [

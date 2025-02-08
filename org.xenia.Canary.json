@@ -31,7 +31,7 @@
         },
         {
           "type": "file",
-          "path": "/optt/XeniaTest/org.xenia.Canary.desktop"
+          "path": "/home/$USER/XeniaTest/org.xenia.Canary.desktop"
         }
       ],
       "finish-args": [

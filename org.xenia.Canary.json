@@ -31,8 +31,7 @@
         },
         {
           "type": "file",
-          "url": "https://raw.githubusercontent.com/Twig6943/XeniaTest/refs/heads/main/Xenia-canary.desktop",
-          "dest-filename": "Xenia-canary.desktop"
+          "path": "org.xenia.Canary.desktop",
         }
       ],
       "finish-args": [

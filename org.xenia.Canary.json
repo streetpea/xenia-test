@@ -19,11 +19,6 @@
       ],
       "sources": [
         {
-          "type": "git",
-          "url": "https://github.com/xenia-canary/xenia-canary.git",
-          "branch": "canary_experimental"
-        },
-        {
           "type": "file",
           "url": "https://github.com/xenia-project/xenia/blob/master/assets/icon/256.png?raw=true",
           "dest-filename": "xenia.png",

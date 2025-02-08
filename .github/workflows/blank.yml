@@ -20,17 +20,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: artixlinux/artixlinux:latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
-          # Workaround for landlock issue (if it persists)
-          sudo sysctl -w fs.protected_regular=0
-
-          pacman -Syu --noconfirm base-devel \
+          sudo apt update
+          sudo apt install --no-install-recommends -y \
+            build-essential \
             cmake \
             strace \
             patchelf \
@@ -38,14 +36,13 @@ jobs:
             wget \
             git \
             llvm \
-            mesa \
-            vulkan-tools \
-            xorg-server-xvfb \
-            glib2 \
-            python \
-            python-pip \
-            python-setuptools \
-            python-wheel
+            mesa-utils \
+            vulkan-utils \
+            xorg-dev \
+            python3 \
+            python3-pip \
+            python3-setuptools \
+            python3-wheel
 
       - name: Make AppImage
         run: |

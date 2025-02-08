@@ -13,11 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Flatpak Builder Environment
-        run: |
-          flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          flatpak update --appstream --assumeyes
-
       - name: Install dependencies
         run: |
           apt update
@@ -39,6 +34,14 @@ jobs:
             meson \
             ninja-build
 
+      
+      - name: Setup Flatpak Builder Environment
+        run: |
+          git clone https://github.com/Twig6943/XeniaTest.git
+          cd XeniaTest
+          flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          flatpak update --appstream --assumeyes
+
       - name: Build Flatpak package
         run: |
-          flatpak-builder --user --install --force-clean build-dir com.example.MyApp.yml
+          flatpak-builder --force-clean --bundle build-dir org.xenia.Canary.json

@@ -1,0 +1,12 @@
+diff --git a/premake5.lua b/premake5.lua
+index a5508ba75..4a0b61fae 100644
+--- a/premake5.lua
++++ b/premake5.lua
+@@ -106,7 +106,6 @@ filter("platforms:Linux")
+   })
+   pkg_config.all("gtk+-x11-3.0")
+   links({
+-    "stdc++fs",
+     "dl",
+     "lz4",
+     "pthread",

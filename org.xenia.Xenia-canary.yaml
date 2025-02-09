@@ -38,12 +38,14 @@ modules:
       - type: git
         url: https://github.com/xenia-canary/xenia-canary.git
         tag: canary_experimental
+      - type: patch
+        path: 0001-remove-stdc++fs.patch
     buildsystem: simple
     build-commands:
       - python3 xb premake
       - python3 xb build --config=release
     post-install:
-      - install -Dm755 build/bin/Linux/Release/xenia-canary $FLATPAK_DEST/bin/xenia-canary
+      - install -Dm755 build/bin/Linux/Release/xenia_canary $FLATPAK_DEST/bin/xenia-canary
       - install -Dm644 assets/icon/256.png $FLATPAK_DEST/share/icons/hicolor/256x256/apps/xenia-canary.png
       - install -Dm644 ../xenia-canary.desktop $FLATPAK_DEST/share/applications/org.xenia-canary.desktop
       - install -Dm644 ../org.xenia.Xenia-canary.appdata.xml $FLATPAK_DEST/share/appdata/org.xenia.Xenia-canary.appdata.xml

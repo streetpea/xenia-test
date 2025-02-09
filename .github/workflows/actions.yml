@@ -41,11 +41,18 @@ jobs:
         working-directory: xenia-canary
         run: |
           flatpak build-bundle xenia-canary xenia-canary.flatpak org.xenia.Xenia-canary --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
-
+          flatpak build-bundle xenia-canary xenia-canary-debug.flatpak org.xenia.Xenia_canary.Debug --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
       - name: Upload chiaki-ng Artifact
         uses: actions/upload-artifact@v4
         with:
           name: xenia-canary.flatpak
           path: xenia-canary/xenia-canary.flatpak
+          if-no-files-found: error
+          retention-days: 1
+      - name: Upload chiaki-ng Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xenia-canary-debug.flatpak
+          path: xenia-canary/xenia-canary-debug.flatpak
           if-no-files-found: error
           retention-days: 1

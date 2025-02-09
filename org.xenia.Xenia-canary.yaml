@@ -9,8 +9,7 @@ separate-locales: false
 finish-args:
   - --share=network
   - --share=ipc
-  - --socket=fallback-x11
-  - --socket=wayland
+  - --socket=x11
   - --device=all
   - --allow=bluetooth
   - --socket=pulseaudio

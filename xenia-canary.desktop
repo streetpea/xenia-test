@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Xenia-canary
+Name=xenia-canary
 Exec=xenia-canary
 Icon=xenia
 Categories=Game;Emulator;

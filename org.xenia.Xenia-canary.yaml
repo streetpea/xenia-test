@@ -1,0 +1,49 @@
+app-id: org.xenia.Xenia-canary
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: xenia-canary
+sdk-extensions: 
+  - org.freedesktop.Sdk.Extension.llvm19
+separate-locales: false
+finish-args:
+  - --share=network
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=all
+  - --allow=bluetooth
+  - --socket=pulseaudio
+  - --env=LD_LIBRARY_PATH=/app/lib:/app/lib64
+  - --talk-name=org.freedesktop.ScreenSaver
+  - --talk-name=org.mate.ScreenSaver
+  - --filesystem=xdg-run/pipewire-0
+  - --filesystem=xdg-run/gamescope-0
+  - --filesystem=home:ro
+  - --filesystem=/media
+  - --filesystem=/run/media
+
+build-options:
+  append-path: /usr/lib/sdk/llvm19/bin
+  prepend-ld-library-path: /usr/lib/sdk/llvm19/lib
+  arch:
+    aarch64:
+      prepend-pkg-config-path: /app/lib/aarch64-linux-gnu/pkgconfig
+    x86_64:
+      prepend-pkg-config-path: /app/lib/pkgconfig:/app/lib64/pkgconfig:/app/lib/x86_64-linux-gnu/pkgconfig:/app/lib64/x86_64-linux-gnu/pkgconfig
+
+modules:
+  - name: xenia-canary
+    sources:
+      - type: git
+        url: https://github.com/xenia-canary/xenia-canary.git
+        tag: canary_experimental
+    buildsystem: simple
+    build-commands:
+      - python3 xb premake
+      - python3 xb build --config=release
+    post-install:
+      - install -Dm755 build/bin/Linux/Release/xenia-canary $FLATPAK_DEST/bin/xenia-canary
+      - install -Dm644 assets/icon/256.png $FLATPAK_DEST/share/icons/hicolor/256x256/apps/xenia-canary.png
+      - install -Dm644 ../xenia-canary.desktop $FLATPAK_DEST/share/applications/org.xenia-canary.desktop
+      - install -Dm644 ../org.xenia.Xenia-canary.appdata.xml $FLATPAK_DEST/share/appdata/org.xenia.Xenia-canary.appdata.xml

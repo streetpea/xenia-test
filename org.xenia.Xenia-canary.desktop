@@ -2,6 +2,6 @@
 Type=Application
 Comment=Xbox 360 Emulator
 Name=xenia-canary
-Exec=xenia-canary
+Exec=xenia-canary --portable=false --mount_cache=false
 Icon=org.xenia.Xenia-canary
 Categories=Game;Emulator;

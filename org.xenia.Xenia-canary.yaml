@@ -2,7 +2,7 @@ app-id: org.xenia.Xenia-canary
 runtime: org.freedesktop.Platform
 runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
-command: xenia-canary
+command: xenia-canary.sh
 sdk-extensions: 
   - org.freedesktop.Sdk.Extension.llvm19
 separate-locales: false
@@ -46,15 +46,15 @@ modules:
       - type: file
         path: xenia-canary.svg
       - type: file
-        path: xenia-canary.config.toml
+        path: xenia-canary.sh
     buildsystem: simple
     build-commands:
       - python3 xb premake
       - python3 xb build --config=release
     post-install:
       - install -Dm755 build/bin/Linux/Release/xenia_canary $FLATPAK_DEST/bin/xenia-canary
+      - install -Dm755 xenia-canary.sh $FLATPAK_DEST/bin/xenia-canary.sh
       - install -Dm644 assets/icon/256.png $FLATPAK_DEST/share/icons/hicolor/256x256/apps/$FLATPAK_ID.png
       - install -Dm644 xenia-canary.svg $FLATPAK_DEST/share/icons/hicolor/scalable/apps/$FLATPAK_ID.svg
       - install -Dm644 org.xenia.Xenia-canary.desktop $FLATPAK_DEST/share/applications/$FLATPAK_ID.desktop
       - install -Dm644 org.xenia.Xenia-canary.appdata.xml $FLATPAK_DEST/share/appdata/$FLATPAK_ID.appdata.xml
-      - install -Dm644 xenia-canary.config.toml $FLATPAK_DEST/bin/xenia-canary.config.toml

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
   <id>org.xenia.Xenia-canary</id>
-  <launchable type="desktop-id">xenia-canary.desktop</launchable>
+  <launchable type="desktop-id">org.xenia.Xenia-canary.desktop</launchable>
   <name>xenia-canary</name>
   <summary>Xbox 360 Research Emulator</summary>
   <metadata_license>CC0-1.0</metadata_license>
@@ -24,3 +24,4 @@
   </screenshots>
   <update_contact>fatihbakal7@protonmail.com</update_contact>
   <content_rating type="oars-1.1" />
+</component>

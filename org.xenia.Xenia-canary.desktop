@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Comment=Xbox 360 Emulator
+Name=xenia-canary
+Exec=xenia-canary
+Icon=xenia-canary
+Categories=Game;Emulator;

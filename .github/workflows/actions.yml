@@ -12,42 +12,39 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          path: 'xenia-canary'
 
       - name: Install dependencies
         run: |
-          sudo apt update
-          sudo apt install -y \
-            build-essential \
-            cmake \
-            curl \
-            wget \
-            git \
-            flatpak \
-            flatpak-builder \
-            python3 \
-            python3-pip \
-            python3-setuptools \
-            python3-wheel \
-            libglib2.0-dev \
-            libjson-glib-dev \
-            libgtk-3-dev \
-            meson \
-            ninja-build
+          sudo apt-get update
+          sudo apt-get install -y \
+          flatpak \
+          flatpak-builder
 
       - name: Setup Flatpak Builder Environment
         run: |
-          mkdir ~/.config/XeniaTest
-          git clone https://github.com/Twig6943/XeniaTest.git ~/.config/XeniaTest
-          cd ~/.config/XeniaTest
           flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          flatpak install org.freedesktop.Sdk//23.08 -y
-          flatpak install org.freedesktop.Platform//23.08 -y
+          flatpak install org.freedesktop.Sdk//24.08 -y
+          flatpak install org.freedesktop.Platform//24.08 -y
+          flatpak install org.freedesktop.Sdk.Extension.llvm19 -y 
           flatpak update --appstream --assumeyes
 
       - name: Build Flatpak package
+        working-directory: xenia-canary
         run: |
-          flatpak-builder --force-clean build-dir org.xenia.Canary.json
+          flatpak-builder --repo=xenia-canary --force-clean build-dir org.xenia.Xenia-canary.yaml
 
       - name: Bundle Flatpak app
+        working-directory: xenia-canary
         run: |
-          flatpak build-bundle build-dir example.flatpak org.xenia.Canary --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
+          flatpak build-bundle xenia-canary xenia-canary.flatpak org.xenia.Xenia-canary --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo
+
+      - name: Upload chiaki-ng Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xenia-canary.flatpak
+          path: xenia-canary/xenia-canary.flatpak
+          if-no-files-found: error
+          retention-days: 1

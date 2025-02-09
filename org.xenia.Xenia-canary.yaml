@@ -44,12 +44,18 @@ modules:
         path: org.xenia.Xenia-canary.desktop
       - type: file
         path: org.xenia.Xenia-canary.appdata.xml
+      - type: file
+        path: xenia-canary.svg
+      - type: file
+        path: xenia-canary.config.toml
     buildsystem: simple
     build-commands:
       - python3 xb premake
       - python3 xb build --config=release
     post-install:
       - install -Dm755 build/bin/Linux/Release/xenia_canary $FLATPAK_DEST/bin/xenia-canary
-      - install -Dm644 assets/icon/256.png $FLATPAK_DEST/share/icons/hicolor/256x256/apps/xenia-canary.png
-      - install -Dm644 org.xenia.Xenia-canary.desktop $FLATPAK_DEST/share/applications/org.xenia.Xenia-canary.desktop
-      - install -Dm644 org.xenia.Xenia-canary.appdata.xml $FLATPAK_DEST/share/appdata/org.xenia.Xenia-canary.appdata.xml
+      - install -Dm644 assets/icon/256.png $FLATPAK_DEST/share/icons/hicolor/256x256/apps/$FLATPAK_ID.png
+      - install -Dm644 xenia-canary.svg $FLATPAK_DEST/share/icons/hicolor/scalable/apps/$FLATPAK_ID.svg
+      - install -Dm644 org.xenia.Xenia-canary.desktop $FLATPAK_DEST/share/applications/$FLATPAK_ID.desktop
+      - install -Dm644 org.xenia.Xenia-canary.appdata.xml $FLATPAK_DEST/share/appdata/$FLATPAK_ID.appdata.xml
+      - install -Dm644 xenia-canary.config.toml $FLATPAK_DEST/bin/xenia-canary.config.toml
